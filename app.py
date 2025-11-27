@@ -28,6 +28,7 @@ init_db(app,db)
 app.register_blueprint(routes.company)
 app.register_blueprint(routes.product)
 app.register_blueprint(routes.category)
+app.register_blueprint(routes.warranty)
 
 def create_tables():
     with app.app_context():

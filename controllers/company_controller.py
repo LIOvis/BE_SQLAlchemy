@@ -65,7 +65,7 @@ def get_company_by_id(company_id):
     return jsonify({"message": "company found", "result": company}), 200
 
 def update_company_by_id(company_id):
-    post_data = request.form if request.form else request.get_json()
+    post_data = request.form if request.form else request.json
     query = db.session.query(Companies).filter(Companies.company_id == company_id).first()
 
     query.company_name = post_data.get("company_name", query.company_name)
@@ -74,7 +74,7 @@ def update_company_by_id(company_id):
         db.session.commit()
     except:
         db.session.rollback()
-        return jsonify({"message": "company could not be updated"}), 404
+        return jsonify({"message": "company could not be updated"}), 400
     
     updated_company_query = db.session.query(Companies).filter(Companies.company_id == company_id).first()
 
